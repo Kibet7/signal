@@ -2,23 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Premium Aviator Predictor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Aviator Signal Predictor</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        
         body {
             font-family: 'Arial', sans-serif;
-            background: #0a192f;
+            background: #0a192f; /* Dark blue background */
             color: white;
-            height: 100vh;
-            width: 100vw;
-            overflow: hidden;
-            position: fixed;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
             background-image: 
                 radial-gradient(circle at 20% 30%, rgba(30, 144, 255, 0.1) 0%, transparent 20%),
                 radial-gradient(circle at 80% 70%, rgba(30, 144, 255, 0.1) 0%, transparent 20%),
@@ -26,42 +20,43 @@
         }
         
         .container {
-            width: 100%;
-            height: 100%;
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+            position: relative;
         }
         
         .header {
-            text-align: center;
-            margin-bottom: 10px;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 2;
         }
         
         .header h1 {
-            font-size: 1.4rem;
+            font-size: 2.5rem;
             text-shadow: 0 0 10px rgba(0, 191, 255, 0.5);
             background: linear-gradient(90deg, #00bfff, #ffffff);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
         }
         
         .header p {
             color: #a8d8ff;
-            font-size: 0.9rem;
+            font-size: 1.1rem;
         }
         
         .game-container {
             position: relative;
-            height: 100px;
-            margin: 10px 0;
+            height: 300px;
+            margin: 40px 0;
             background: rgba(5, 25, 55, 0.5);
-            border-radius: 10px;
+            border-radius: 15px;
             overflow: hidden;
             border: 1px solid rgba(0, 191, 255, 0.2);
+            box-shadow: 0 0 30px rgba(0, 191, 255, 0.1);
         }
         
         .runway {
@@ -74,6 +69,16 @@
             z-index: 1;
         }
         
+        .runway::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: 0;
+            width: 100%;
+            height: 12px;
+            background: linear-gradient(90deg, transparent, rgba(0, 191, 255, 0.1), transparent);
+        }
+        
         .runway-lights {
             position: absolute;
             bottom: 30%;
@@ -83,18 +88,23 @@
             background: repeating-linear-gradient(
                 to right,
                 transparent,
-                transparent 14px,
-                rgba(0, 191, 255, 0.7) 15px,
-                rgba(0, 191, 255, 0.7) 16px
+                transparent 19px,
+                rgba(0, 191, 255, 0.7) 20px,
+                rgba(0, 191, 255, 0.7) 21px
             );
             z-index: 2;
             animation: runwayLights 1s linear infinite;
         }
         
+        @keyframes runwayLights {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-20px); }
+        }
+        
         .plane {
             position: absolute;
-            width: 45px;
-            height: 45px;
+            width: 80px;
+            height: 80px;
             left: 0;
             top: 50%;
             transform: translateY(-50%);
@@ -103,35 +113,66 @@
             filter: drop-shadow(0 0 5px rgba(0, 191, 255, 0.7));
         }
         
+        .plane svg {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .plane.crashed {
+            animation: crash 1s forwards;
+            filter: drop-shadow(0 0 10px rgba(255, 50, 50, 0.8));
+        }
+        
+        @keyframes crash {
+            0% { transform: translateY(-50%) rotate(0deg); }
+            50% { transform: translateY(100%) rotate(45deg); }
+            100% { transform: translateY(150%) rotate(90deg); }
+        }
+        
         .signal-display {
             background: rgba(5, 25, 55, 0.7);
             border-radius: 10px;
-            padding: 12px;
-            margin: 10px 0;
+            padding: 20px;
+            margin: 30px 0;
+            box-shadow: 0 0 20px rgba(0, 191, 255, 0.2);
             border: 1px solid rgba(0, 191, 255, 0.3);
             position: relative;
+            overflow: hidden;
+        }
+        
+        .signal-display::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #00bfff, #0066ff);
         }
         
         .signal-display h2 {
-            font-size: 1rem;
+            margin-top: 0;
             color: #a8d8ff;
-            margin-bottom: 5px;
+            font-size: 1.3rem;
         }
         
         .signal {
-            font-size: 1.6rem;
+            font-size: 2.5rem;
             font-weight: bold;
             color: #4CAF50;
-            text-shadow: 0 0 10px rgba(76, 175, 80, 0.7);
-            margin: 5px 0;
+            text-shadow: 0 0 15px rgba(76, 175, 80, 0.7);
+            margin: 10px 0;
+            font-family: 'Digital', monospace;
         }
         
         .signal.error {
             color: #ff5555;
+            text-shadow: 0 0 15px rgba(255, 85, 85, 0.7);
         }
         
         .countdown {
-            font-size: 0.9rem;
+            font-size: 1.2rem;
+            margin: 10px 0;
             color: #a8d8ff;
         }
         
@@ -139,58 +180,112 @@
             background: linear-gradient(135deg, #00bfff, #0066ff);
             color: white;
             border: none;
-            padding: 12px 20px;
-            font-size: 1rem;
-            border-radius: 25px;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border-radius: 50px;
             cursor: pointer;
-            width: 100%;
-            margin: 10px 0;
-            box-shadow: 0 4px 10px rgba(0, 102, 255, 0.4);
-        }
-        
-        .collapsible-content {
-            max-height: 0;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 102, 255, 0.4);
+            margin-top: 20px;
+            position: relative;
             overflow: hidden;
-            transition: max-height 0.3s ease-out;
-            background: rgba(5, 25, 55, 0.9);
-            border-radius: 0 0 10px 10px;
-            margin-top: -10px;
+            z-index: 1;
         }
         
-        .collapsible-content.show {
-            max-height: 350px;
-            padding: 15px;
-            margin-bottom: 10px;
+        .payment-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0066ff, #00bfff);
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: -1;
+        }
+        
+        .payment-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 102, 255, 0.6);
+        }
+        
+        .payment-button:hover::before {
+            opacity: 1;
+        }
+        
+        .payment-instructions {
+            background: rgba(5, 25, 55, 0.9);
+            padding: 25px;
+            border-radius: 10px;
+            margin: 30px auto;
+            max-width: 600px;
             border: 1px solid rgba(0, 191, 255, 0.3);
-            border-top: none;
+            box-shadow: 0 0 20px rgba(0, 191, 255, 0.2);
+            display: none;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .payment-instructions::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #00bfff, #0066ff);
+        }
+        
+        .payment-instructions.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .payment-instructions h3 {
+            margin-top: 0;
+            color: #00bfff;
+            font-size: 1.5rem;
         }
         
         .payment-instructions ol {
-            font-size: 0.85rem;
+            text-align: left;
             padding-left: 20px;
-            margin-bottom: 10px;
         }
         
         .payment-instructions li {
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+            line-height: 1.6;
             color: #a8d8ff;
         }
         
         .payment-details {
             background: rgba(0, 191, 255, 0.1);
-            padding: 10px;
+            padding: 15px;
             border-radius: 8px;
-            margin: 10px 0;
-            font-size: 0.85rem;
+            margin: 20px 0;
+            border: 1px solid rgba(0, 191, 255, 0.2);
         }
         
         .detail-row {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+        
+        .detail-label {
+            font-weight: bold;
+            color: #a8d8ff;
         }
         
         .detail-value {
+            font-size: 1.1rem;
             color: #00bfff;
             font-weight: bold;
         }
@@ -199,74 +294,103 @@
             background: rgba(0, 191, 255, 0.3);
             color: white;
             border: none;
-            padding: 3px 10px;
-            border-radius: 15px;
-            font-size: 0.75rem;
-            margin-left: 8px;
+            padding: 5px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-left: 10px;
+            transition: all 0.2s;
+            border: 1px solid rgba(0, 191, 255, 0.5);
         }
         
-        .features-toggle {
-            background: rgba(0, 191, 255, 0.2);
-            color: #a8d8ff;
-            border: none;
-            padding: 8px;
-            font-size: 0.85rem;
-            border-radius: 5px;
-            margin: 5px 0;
-            width: 100%;
-            text-align: center;
-            cursor: pointer;
+        .copy-btn:hover {
+            background: rgba(0, 191, 255, 0.5);
+        }
+        
+        .copy-btn.copied {
+            background: #4CAF50;
+            border-color: #4CAF50;
         }
         
         .features {
-            display: none;
-            background: rgba(5, 25, 55, 0.7);
-            border-radius: 10px;
-            padding: 10px;
-            margin: 5px 0;
-            border: 1px solid rgba(0, 191, 255, 0.2);
-        }
-        
-        .features.show {
             display: flex;
+            justify-content: space-around;
             flex-wrap: wrap;
-            justify-content: space-between;
+            margin: 30px 0;
         }
         
         .feature {
-            width: 48%;
-            margin-bottom: 10px;
-            font-size: 0.85rem;
+            background: rgba(5, 25, 55, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            width: 30%;
+            min-width: 200px;
+            margin: 10px 0;
+            border: 1px solid rgba(0, 191, 255, 0.2);
+            transition: all 0.3s;
+        }
+        
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 191, 255, 0.2);
+            border-color: rgba(0, 191, 255, 0.4);
         }
         
         .feature h3 {
             color: #00bfff;
-            font-size: 0.9rem;
-            margin-bottom: 5px;
+            margin-top: 0;
         }
         
-        /* Animations */
-        @keyframes runwayLights {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-15px); }
+        .feature p {
+            color: #a8d8ff;
+        }
+        
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle var(--duration) infinite ease-in-out;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
         }
         
         @keyframes fly {
             0% { left: 0; transform: translateY(-50%) rotate(0deg); }
-            100% { left: calc(100% - 45px); transform: translateY(-50%) rotate(0deg); }
+            25% { transform: translateY(-70%) rotate(5deg); }
+            50% { transform: translateY(-50%) rotate(0deg); }
+            75% { transform: translateY(-30%) rotate(-5deg); }
+            100% { left: calc(100% - 80px); transform: translateY(-50%) rotate(0deg); }
         }
         
-        @keyframes crash {
-            0% { transform: translateY(-50%) rotate(0deg); }
-            100% { transform: translateY(100%) rotate(90deg); }
+        .error-message {
+            color: #ff5555;
+            margin-top: 10px;
+            font-weight: bold;
+            text-shadow: 0 0 5px rgba(255, 85, 85, 0.5);
+            display: none;
         }
     </style>
 </head>
 <body>
+    <div class="stars" id="stars"></div>
+    
     <div class="container">
         <div class="header">
-            <h1>Premium Aviator Predictor</h1>
-            <p>Accurate predictions before takeoff!</p>
+            <h1>Premium Aviator Signal Predictor</h1>
+            <p>Get accurate predictions before the plane takes off!</p>
         </div>
         
         <div class="game-container">
@@ -280,90 +404,122 @@
         </div>
         
         <div class="signal-display">
-            <h2>Next Prediction:</h2>
+            <h2>Next Signal Prediction:</h2>
             <div class="signal" id="signal">Loading...</div>
-            <div class="countdown">Next in: <span id="timer">30</span>s</div>
+            <div class="error-message" id="errorMessage">Connection error - retrying...</div>
+            <div class="countdown">Next update in: <span id="timer">30</span>s</div>
         </div>
         
-        <button class="payment-button" id="payButton">Unlock Premium for KSh 850</button>
+        <button class="payment-button" id="payButton">Unlock Premium Signals for KSh 850</button>
         
-        <div class="collapsible-content" id="paymentInstructions">
-            <div class="payment-instructions">
-                <ol>
-                    <li>Go to <strong>M-Pesa</strong></li>
-                    <li>Select <strong>"Lipa Na M-Pesa"</strong></li>
-                    <li>Choose <strong>"Buy Goods"</strong></li>
-                    <li>Till: <strong>3689878</strong></li>
-                    <li>Amount: <strong>850</strong></li>
-                    <li>Enter <strong>PIN</strong> & send</li>
-                </ol>
-                
-                <div class="payment-details">
-                    <div class="detail-row">
-                        <span>Till Number:</span>
-                        <div>
-                            <span class="detail-value" id="tillNumber">3689878</span>
-                            <button class="copy-btn" id="copyTillBtn">Copy</button>
-                        </div>
-                    </div>
-                    <div class="detail-row">
-                        <span>Amount:</span>
-                        <span class="detail-value">KSh 850</span>
+        <div class="payment-instructions" id="paymentInstructions">
+            <h3>M-Pesa Payment Instructions</h3>
+            <p>Follow these steps to complete your payment:</p>
+            <ol>
+                <li>Go to <strong>M-Pesa</strong> menu on your phone</li>
+                <li>Select <strong>"Lipa Na M-Pesa"</strong></li>
+                <li>Select <strong>"Buy Goods and Services"</strong></li>
+                <li>Enter Till Number: <strong>3689878</strong></li>
+                <li>Enter Amount: <strong>850</strong></li>
+                <li>Enter your <strong>M-Pesa PIN</strong> and send</li>
+                <li>You will receive a confirmation SMS</li>
+            </ol>
+            
+            <div class="payment-details">
+                <div class="detail-row">
+                    <span class="detail-label">Till Number:</span>
+                    <div>
+                        <span class="detail-value" id="tillNumber">3689878</span>
+                        <button class="copy-btn" id="copyTillBtn">Copy</button>
                     </div>
                 </div>
-                
-                <p style="font-size:0.8rem;text-align:center;">Refresh after payment for access!</p>
+                <div class="detail-row">
+                    <span class="detail-label">Amount:</span>
+                    <span class="detail-value">KSh 850</span>
+                </div>
             </div>
+            
+            <p>After successful payment, refresh this page to access premium signals!</p>
+            <p>For any issues, contact support: <strong>0712345678</strong></p>
         </div>
         
-        <button class="features-toggle" id="featuresToggle">▼ Show Features</button>
-        
-        <div class="features" id="features">
+        <div class="features">
             <div class="feature">
                 <h3>High Accuracy</h3>
-                <p>92% prediction accuracy</p>
+                <p>Our algorithm boasts 92% prediction accuracy</p>
             </div>
             <div class="feature">
-                <h3>Real-time</h3>
-                <p>Updates every 30s</p>
+                <h3>Real-time Updates</h3>
+                <p>Signals refresh every 30 seconds</p>
             </div>
             <div class="feature">
                 <h3>24/7 Support</h3>
-                <p>Always available</p>
+                <p>Dedicated customer support team</p>
             </div>
         </div>
     </div>
     
     <script>
-        // Simulate signal prediction
+        // Create stars background
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const starsCount = 100;
+            
+            for (let i = 0; i < starsCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // Random size between 1-3px
+                const size = Math.random() * 2 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                // Random position
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                
+                // Random animation duration
+                star.style.setProperty('--duration', `${Math.random() * 3 + 2}s`);
+                
+                starsContainer.appendChild(star);
+            }
+        }
+        
+        // Simulate signal prediction with occasional errors
         function generateSignal() {
             const signals = ["1.45x", "2.10x", "1.80x", "3.25x", "1.30x", "2.75x"];
             const signalElement = document.getElementById('signal');
+            const errorElement = document.getElementById('errorMessage');
             const plane = document.getElementById('plane');
             
-            // 15% chance of error
-            const isError = Math.random() < 0.15;
+            // 20% chance of error
+            const isError = Math.random() < 0.2;
             
             if (isError) {
                 signalElement.textContent = "ERR";
                 signalElement.classList.add('error');
-                plane.style.animation = 'crash 0.8s forwards';
+                errorElement.style.display = 'block';
+                plane.classList.add('crashed');
                 
+                // Reset plane after crash animation
                 setTimeout(() => {
-                    plane.style.animation = '';
+                    plane.classList.remove('crashed');
                     plane.style.left = '0';
+                    plane.style.top = '50%';
                     plane.style.transform = 'translateY(-50%)';
                 }, 1000);
             } else {
                 const randomSignal = signals[Math.floor(Math.random() * signals.length)];
                 signalElement.textContent = randomSignal;
                 signalElement.classList.remove('error');
-                plane.style.animation = 'fly 5s linear 1';
+                errorElement.style.display = 'none';
                 
+                // Animate plane
+                plane.style.animation = 'fly 8s linear 1';
                 setTimeout(() => {
                     plane.style.left = '0';
                     plane.style.animation = '';
-                }, 5000);
+                }, 8000);
             }
             
             // Start countdown
@@ -376,12 +532,13 @@
                 
                 if (timeLeft <= 0) {
                     clearInterval(countdown);
-                    generateSignal();
+                    generateSignal(); // Generate new signal
                 }
             }, 1000);
         }
         
         // Initialize
+        createStars();
         generateSignal();
         
         // Payment button functionality
@@ -389,24 +546,9 @@
             const instructions = document.getElementById('paymentInstructions');
             instructions.classList.toggle('show');
             
-            // Hide features if showing
-            if (document.getElementById('features').classList.contains('show')) {
-                document.getElementById('features').classList.remove('show');
-                document.getElementById('featuresToggle').textContent = '▼ Show Features';
-            }
-        });
-        
-        // Features toggle functionality
-        document.getElementById('featuresToggle').addEventListener('click', function() {
-            const features = document.getElementById('features');
-            const toggle = document.getElementById('featuresToggle');
-            
-            features.classList.toggle('show');
-            toggle.textContent = features.classList.contains('show') ? '▲ Hide Features' : '▼ Show Features';
-            
-            // Hide payment instructions if showing
-            if (document.getElementById('paymentInstructions').classList.contains('show')) {
-                document.getElementById('paymentInstructions').classList.remove('show');
+            // Scroll to the payment instructions for better visibility
+            if (instructions.classList.contains('show')) {
+                instructions.scrollIntoView({ behavior: 'smooth' });
             }
         });
         
@@ -416,9 +558,15 @@
             navigator.clipboard.writeText(tillNumber).then(() => {
                 const btn = document.getElementById('copyTillBtn');
                 btn.textContent = 'Copied!';
+                btn.classList.add('copied');
+                
+                // Reset button after 2 seconds
                 setTimeout(() => {
                     btn.textContent = 'Copy';
+                    btn.classList.remove('copied');
                 }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
             });
         });
     </script>
