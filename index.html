@@ -28,41 +28,40 @@
         .container {
             width: 100%;
             height: 100%;
-            padding: 10px;
+            padding: 15px;
             display: flex;
             flex-direction: column;
+            justify-content: space-between;
         }
         
         .header {
             text-align: center;
-            margin-bottom: 5px;
-            flex-shrink: 0;
+            margin-bottom: 10px;
         }
         
         .header h1 {
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             text-shadow: 0 0 10px rgba(0, 191, 255, 0.5);
             background: linear-gradient(90deg, #00bfff, #ffffff);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            margin-bottom: 3px;
+            margin-bottom: 5px;
         }
         
         .header p {
             color: #a8d8ff;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
         }
         
         .game-container {
             position: relative;
-            height: 80px;
-            margin: 5px 0;
+            height: 100px;
+            margin: 10px 0;
             background: rgba(5, 25, 55, 0.5);
-            border-radius: 8px;
+            border-radius: 10px;
             overflow: hidden;
             border: 1px solid rgba(0, 191, 255, 0.2);
-            flex-shrink: 0;
         }
         
         .runway {
@@ -94,8 +93,8 @@
         
         .plane {
             position: absolute;
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
             left: 0;
             top: 50%;
             transform: translateY(-50%);
@@ -106,26 +105,25 @@
         
         .signal-display {
             background: rgba(5, 25, 55, 0.7);
-            border-radius: 8px;
-            padding: 10px;
-            margin: 5px 0;
+            border-radius: 10px;
+            padding: 12px;
+            margin: 10px 0;
             border: 1px solid rgba(0, 191, 255, 0.3);
             position: relative;
-            flex-shrink: 0;
         }
         
         .signal-display h2 {
-            font-size: 0.9rem;
+            font-size: 1rem;
             color: #a8d8ff;
-            margin-bottom: 3px;
+            margin-bottom: 5px;
         }
         
         .signal {
-            font-size: 1.4rem;
+            font-size: 1.6rem;
             font-weight: bold;
             color: #4CAF50;
             text-shadow: 0 0 10px rgba(76, 175, 80, 0.7);
-            margin: 3px 0;
+            margin: 5px 0;
         }
         
         .signal.error {
@@ -133,7 +131,7 @@
         }
         
         .countdown {
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             color: #a8d8ff;
         }
         
@@ -141,14 +139,13 @@
             background: linear-gradient(135deg, #00bfff, #0066ff);
             color: white;
             border: none;
-            padding: 10px 15px;
-            font-size: 0.9rem;
-            border-radius: 20px;
+            padding: 12px 20px;
+            font-size: 1rem;
+            border-radius: 25px;
             cursor: pointer;
             width: 100%;
-            margin: 5px 0;
+            margin: 10px 0;
             box-shadow: 0 4px 10px rgba(0, 102, 255, 0.4);
-            flex-shrink: 0;
         }
         
         .collapsible-content {
@@ -156,41 +153,41 @@
             overflow: hidden;
             transition: max-height 0.3s ease-out;
             background: rgba(5, 25, 55, 0.9);
-            border-radius: 0 0 8px 8px;
-            margin-top: -5px;
+            border-radius: 0 0 10px 10px;
+            margin-top: -10px;
         }
         
         .collapsible-content.show {
-            max-height: 300px;
-            padding: 10px;
-            margin-bottom: 5px;
+            max-height: 350px;
+            padding: 15px;
+            margin-bottom: 10px;
             border: 1px solid rgba(0, 191, 255, 0.3);
             border-top: none;
         }
         
         .payment-instructions ol {
-            font-size: 0.75rem;
-            padding-left: 18px;
-            margin-bottom: 8px;
+            font-size: 0.85rem;
+            padding-left: 20px;
+            margin-bottom: 10px;
         }
         
         .payment-instructions li {
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             color: #a8d8ff;
         }
         
         .payment-details {
             background: rgba(0, 191, 255, 0.1);
-            padding: 8px;
-            border-radius: 6px;
-            margin: 8px 0;
-            font-size: 0.75rem;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-size: 0.85rem;
         }
         
         .detail-row {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
         
         .detail-value {
@@ -202,20 +199,20 @@
             background: rgba(0, 191, 255, 0.3);
             color: white;
             border: none;
-            padding: 2px 8px;
-            border-radius: 12px;
-            font-size: 0.7rem;
-            margin-left: 6px;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            margin-left: 8px;
         }
         
         .features-toggle {
             background: rgba(0, 191, 255, 0.2);
             color: #a8d8ff;
             border: none;
-            padding: 6px;
-            font-size: 0.75rem;
-            border-radius: 4px;
-            margin: 3px 0;
+            padding: 8px;
+            font-size: 0.85rem;
+            border-radius: 5px;
+            margin: 5px 0;
             width: 100%;
             text-align: center;
             cursor: pointer;
@@ -224,11 +221,10 @@
         .features {
             display: none;
             background: rgba(5, 25, 55, 0.7);
-            border-radius: 8px;
-            padding: 8px;
-            margin: 3px 0;
+            border-radius: 10px;
+            padding: 10px;
+            margin: 5px 0;
             border: 1px solid rgba(0, 191, 255, 0.2);
-            font-size: 0.75rem;
         }
         
         .features.show {
@@ -239,14 +235,14 @@
         
         .feature {
             width: 48%;
-            margin-bottom: 8px;
-            font-size: 0.7rem;
+            margin-bottom: 10px;
+            font-size: 0.85rem;
         }
         
         .feature h3 {
             color: #00bfff;
-            font-size: 0.8rem;
-            margin-bottom: 3px;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
         }
         
         /* Animations */
@@ -257,7 +253,7 @@
         
         @keyframes fly {
             0% { left: 0; transform: translateY(-50%) rotate(0deg); }
-            100% { left: calc(100% - 40px); transform: translateY(-50%) rotate(0deg); }
+            100% { left: calc(100% - 45px); transform: translateY(-50%) rotate(0deg); }
         }
         
         @keyframes crash {
@@ -316,7 +312,7 @@
                     </div>
                 </div>
                 
-                <p style="font-size:0.7rem;text-align:center;">Refresh after payment for access!</p>
+                <p style="font-size:0.8rem;text-align:center;">Refresh after payment for access!</p>
             </div>
         </div>
         
