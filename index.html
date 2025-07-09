@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>weekly Aviator Signal Predictor</title>
+    <title>Weekly Aviator Signal Predictor</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -415,7 +415,7 @@
     <div class="container">
         <div class="header">
             <h1><b>Weekly</b> Aviator Signal Predictor</h1>
-            <p>Get accurate predictions  before the plane takes off!</p>
+            <p>Get accurate predictions before the plane takes off!</p>
         </div>
         
         <div class="game-container">
@@ -446,9 +446,9 @@
             <p>Follow these steps to complete your payment:</p>
             <ol>
                 <li>Go to <strong>M-Pesa</strong> menu on your phone</li>
-                <li>Select <strong>"Lipa Na M-Pesa"</strong></li>
-                <li>Select <strong>"Buy Goods and Services"</strong></li>
-                <li>Enter Till Number: <strong>3689878</strong></li>
+                <li>Select <strong>"Send Money"</strong></li>
+                <li>Select <strong>"Enter Phone Number"</strong></li>
+                <li>Enter Phone Number: <strong>0106438381</strong></li>
                 <li>Enter Amount: <strong>350</strong></li>
                 <li>Enter your <strong>M-Pesa PIN</strong> and send</li>
                 <li>You will receive a confirmation SMS</li>
@@ -456,10 +456,10 @@
             
             <div class="payment-details">
                 <div class="detail-row">
-                    <span class="detail-label">Till Number:</span>
+                    <span class="detail-label">Phone Number:</span>
                     <div>
-                        <span class="detail-value" id="tillNumber">3689878</span>
-                        <button class="copy-btn" id="copyTillBtn">Copy</button>
+                        <span class="detail-value" id="phoneNumber">0106438381</span>
+                        <button class="copy-btn" id="copyPhoneBtn">Copy</button>
                     </div>
                 </div>
                 <div class="detail-row">
@@ -565,11 +565,11 @@
             }
         });
         
-        // Copy Till Number functionality
-        document.getElementById('copyTillBtn').addEventListener('click', function() {
-            const tillNumber = document.getElementById('tillNumber').textContent;
-            navigator.clipboard.writeText(tillNumber).then(() => {
-                const btn = document.getElementById('copyTillBtn');
+        // Copy Phone Number functionality
+        document.getElementById('copyPhoneBtn').addEventListener('click', function() {
+            const phoneNumber = document.getElementById('phoneNumber').textContent;
+            navigator.clipboard.writeText(phoneNumber).then(() => {
+                const btn = document.getElementById('copyPhoneBtn');
                 btn.textContent = 'Copied!';
                 btn.classList.add('copied');
                 
