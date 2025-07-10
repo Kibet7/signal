@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background: #0a192f;
+            background: #0a192f; /* Dark blue background */
             color: white;
             margin: 0;
             padding: 0;
@@ -20,74 +20,79 @@
         }
         
         .container {
-            width: 100%;
+            max-width: 1200px; /* Increased from 800px to 1200px */
             margin: 0 auto;
-            padding: 15px;
+            padding: 20px;
             text-align: center;
             position: relative;
-            box-sizing: border-box;
         }
         
         .header {
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             position: relative;
             z-index: 2;
         }
         
         .header h1 {
-            font-size: 1.8rem;
+            font-size: 2.5rem; /* Slightly larger header */
             text-shadow: 0 0 10px rgba(0, 191, 255, 0.5);
             background: linear-gradient(90deg, #00bfff, #ffffff);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            margin-bottom: 8px;
-            line-height: 1.3;
+            margin-bottom: 10px;
         }
         
         .header p {
             color: #a8d8ff;
-            font-size: 1rem;
-            margin: 0;
+            font-size: 1.1rem; /* Slightly larger text */
         }
         
         .video-container {
             position: relative;
-            margin: 15px auto;
+            margin: 30px auto; /* Centered with auto margins */
             background: rgba(5, 25, 55, 0.5);
-            border-radius: 10px;
+            border-radius: 15px;
             overflow: hidden;
             border: 1px solid rgba(0, 191, 255, 0.2);
-            box-shadow: 0 0 20px rgba(0, 191, 255, 0.1);
+            box-shadow: 0 0 30px rgba(0, 191, 255, 0.1);
             aspect-ratio: 16/9;
-            width: 100%;
+            width: 95%; /* Takes up 95% of container width */
+            max-width: 1100px; /* Maximum width */
+            transform: scale(0.95); /* Slight zoom out */
+            transform-origin: center;
         }
         
         .video-player {
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            object-fit: contain; /* Shows full video without cropping */
         }
         
         .video-controls {
             position: absolute;
-            bottom: 0;
+            bottom: 10px;
             left: 0;
             right: 0;
             background: rgba(0, 0, 0, 0.7);
-            padding: 8px;
+            padding: 10px;
             display: flex;
             align-items: center;
             justify-content: flex-end;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
             z-index: 10;
-            border-radius: 0 0 10px 10px;
-            transform: none !important; /* Always show controls on mobile */
+            border-radius: 0 0 15px 15px;
+        }
+        
+        .video-container:hover .video-controls {
+            transform: translateY(0);
         }
         
         .control-group {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
         
         .control-btn {
@@ -95,14 +100,19 @@
             border: none;
             color: white;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 16px;
             padding: 5px;
             border-radius: 50%;
-            width: 28px;
-            height: 28px;
+            width: 30px;
+            height: 30px;
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: all 0.2s;
+        }
+        
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
         }
         
         .volume-container {
@@ -112,10 +122,26 @@
         }
         
         .volume-slider {
-            width: 60px;
-            height: 4px;
+            width: 70px;
+            height: 5px;
             background: rgba(255, 255, 255, 0.2);
             border-radius: 5px;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.2s, width 0.2s;
+        }
+        
+        .volume-container:hover .volume-slider {
+            opacity: 1;
+            width: 100px;
+        }
+        
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: white;
             cursor: pointer;
         }
         
@@ -123,32 +149,61 @@
             background: linear-gradient(135deg, #00bfff, #0066ff);
             color: white;
             border: none;
-            padding: 12px 20px;
-            font-size: 1rem;
+            padding: 12px 25px;
+            font-size: 1.1rem;
             border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s;
             box-shadow: 0 5px 15px rgba(0, 102, 255, 0.4);
             margin-top: 15px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .payment-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            max-width: 300px;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
+            height: 100%;
+            background: linear-gradient(135deg, #0066ff, #00bfff);
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: -1;
+        }
+        
+        .payment-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 102, 255, 0.6);
+        }
+        
+        .payment-button:hover::before {
+            opacity: 1;
         }
         
         .payment-instructions {
             background: rgba(5, 25, 55, 0.9);
-            padding: 15px;
+            padding: 20px;
             border-radius: 10px;
-            margin: 20px auto;
+            margin: 25px auto;
+            max-width: 800px; /* Slightly wider instructions */
             border: 1px solid rgba(0, 191, 255, 0.3);
             box-shadow: 0 0 20px rgba(0, 191, 255, 0.2);
             display: none;
             position: relative;
             overflow: hidden;
-            width: 100%;
-            box-sizing: border-box;
+        }
+        
+        .payment-instructions::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #00bfff, #0066ff);
         }
         
         .payment-instructions.show {
@@ -164,47 +219,44 @@
         .payment-instructions h3 {
             margin-top: 0;
             color: #00bfff;
-            font-size: 1.2rem;
+            font-size: 1.4rem; /* Slightly larger */
         }
         
         .payment-instructions ol {
             text-align: left;
             padding-left: 20px;
-            font-size: 0.9rem;
-            margin: 15px 0;
+            font-size: 1rem; /* Slightly larger */
         }
         
         .payment-instructions li {
-            margin-bottom: 8px;
-            line-height: 1.5;
+            margin-bottom: 10px; /* More spacing */
+            line-height: 1.6;
             color: #a8d8ff;
         }
         
         .payment-details {
             background: rgba(0, 191, 255, 0.1);
-            padding: 12px;
+            padding: 15px; /* More padding */
             border-radius: 8px;
-            margin: 15px 0;
+            margin: 20px 0; /* More margin */
             border: 1px solid rgba(0, 191, 255, 0.2);
         }
         
         .detail-row {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 8px;
+            margin-bottom: 10px; /* More spacing */
             align-items: center;
-            flex-wrap: wrap;
         }
         
         .detail-label {
             font-weight: bold;
             color: #a8d8ff;
-            font-size: 0.9rem;
-            margin-right: 10px;
+            font-size: 1rem; /* Slightly larger */
         }
         
         .detail-value {
-            font-size: 1rem;
+            font-size: 1.1rem; /* Slightly larger */
             color: #00bfff;
             font-weight: bold;
         }
@@ -213,54 +265,127 @@
             background: rgba(0, 191, 255, 0.3);
             color: white;
             border: none;
-            padding: 4px 12px;
+            padding: 5px 15px; /* Slightly larger */
             border-radius: 20px;
             cursor: pointer;
-            font-size: 0.8rem;
-            margin-left: 8px;
+            font-size: 0.9rem; /* Slightly larger */
+            margin-left: 10px; /* More spacing */
             transition: all 0.2s;
             border: 1px solid rgba(0, 191, 255, 0.5);
         }
         
+        .copy-btn:hover {
+            background: rgba(0, 191, 255, 0.5);
+        }
+        
+        .copy-btn.copied {
+            background: #4CAF50;
+            border-color: #4CAF50;
+        }
+        
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle var(--duration) infinite ease-in-out;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+        
         .support-email {
-            margin-top: 20px;
+            margin-top: 25px; /* More spacing */
             color: #a8d8ff;
-            font-size: 0.9rem;
+            font-size: 1rem; /* Slightly larger */
         }
         
-        /* Remove hover effects for mobile */
-        @media (hover: none) {
-            .video-controls {
-                transform: translateY(0) !important;
-            }
-            
-            .payment-button:hover {
-                transform: none;
-            }
+        .support-email a {
+            color: #00bfff;
+            text-decoration: none;
         }
         
-        /* Desktop styles - only apply on larger screens */
-        @media (min-width: 768px) {
+        .support-email a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
             .container {
-                max-width: 800px;
-                padding: 20px;
+                max-width: 95%;
+                padding: 15px;
             }
             
             .header h1 {
-                font-size: 2.2rem;
+                font-size: 2rem;
+            }
+            
+            .header p {
+                font-size: 1rem;
             }
             
             .video-container {
-                margin: 25px auto;
-            }
-            
-            .video-controls {
-                transform: translateY(100%);
+                width: 100%;
+                margin: 20px 0;
+                transform: scale(1); /* No zoom out on mobile */
             }
             
             .payment-button {
-                width: auto;
                 padding: 12px 25px;
+                font-size: 1.1rem;
+            }
+            
+            .payment-instructions {
+                padding: 15px;
+                max-width: 100%;
+            }
+            
+            .payment-instructions h3 {
+                font-size: 1.3rem;
+            }
+            
+            .payment-instructions ol {
+                font-size: 0.95rem;
+            }
+            
+            .volume-slider {
+                width: 60px;
+            }
+            
+            .volume-container:hover .volume-slider {
+                width: 80px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .header p {
+                font-size: 0.95rem;
+            }
+            
+            .payment-instructions h3 {
+                font-size: 1.2rem;
+            }
+            
+            .payment-instructions ol {
+                font-size: 0.9rem;
+            }
+            
+            .detail-label, .detail-value {
+                font-size: 0.95rem;
             }
         }
     </style>
@@ -275,6 +400,7 @@
         </div>
         
         <div class="video-container">
+            <!-- Replace with your actual video source -->
             <video class="video-player" id="videoPlayer" autoplay muted loop poster="https://via.placeholder.com/800x450/0a192f/00bfff?text=Aviator+Preview">
                 <source src="signal.mp4" type="video/mp4">
                 Your browser does not support the video tag.
@@ -332,19 +458,22 @@
         // Create stars background
         function createStars() {
             const starsContainer = document.getElementById('stars');
-            const starsCount = 50; // Reduced for mobile performance
+            const starsCount = 100;
             
             for (let i = 0; i < starsCount; i++) {
                 const star = document.createElement('div');
                 star.classList.add('star');
                 
+                // Random size between 1-3px
                 const size = Math.random() * 2 + 1;
                 star.style.width = `${size}px`;
                 star.style.height = `${size}px`;
                 
+                // Random position
                 star.style.left = `${Math.random() * 100}%`;
                 star.style.top = `${Math.random() * 100}%`;
                 
+                // Random animation duration
                 star.style.setProperty('--duration', `${Math.random() * 3 + 2}s`);
                 
                 starsContainer.appendChild(star);
@@ -358,9 +487,11 @@
             const volumeSlider = document.getElementById('volumeSlider');
             const fullscreenBtn = document.getElementById('fullscreenBtn');
             
-            // Try autoplay (muted by default)
+            // Autoplay the video (muted by default)
             video.play().catch(error => {
                 console.log('Autoplay prevented:', error);
+                // Show mute button to indicate user needs to interact
+                muteBtn.style.display = 'block';
             });
             
             // Mute toggle
@@ -387,6 +518,31 @@
                     document.exitFullscreen();
                 }
             });
+            
+            // Show controls when video is hovered
+            video.addEventListener('mouseenter', () => {
+                document.getElementById('videoControls').style.transform = 'translateY(0)';
+            });
+            
+            // Hide controls when mouse leaves (unless controls are hovered)
+            video.addEventListener('mouseleave', () => {
+                const controls = document.getElementById('videoControls');
+                if (!controls.matches(':hover')) {
+                    controls.style.transform = 'translateY(100%)';
+                }
+            });
+            
+            // Keep controls visible when hovering over them
+            const controls = document.getElementById('videoControls');
+            controls.addEventListener('mouseenter', () => {
+                controls.style.transform = 'translateY(0)';
+            });
+            
+            controls.addEventListener('mouseleave', () => {
+                if (!video.matches(':hover')) {
+                    controls.style.transform = 'translateY(100%)';
+                }
+            });
         }
         
         // Initialize
@@ -398,6 +554,7 @@
             const instructions = document.getElementById('paymentInstructions');
             instructions.classList.toggle('show');
             
+            // Scroll to the payment instructions for better visibility
             if (instructions.classList.contains('show')) {
                 instructions.scrollIntoView({ behavior: 'smooth' });
             }
@@ -411,6 +568,7 @@
                 btn.textContent = 'Copied!';
                 btn.classList.add('copied');
                 
+                // Reset button after 2 seconds
                 setTimeout(() => {
                     btn.textContent = 'Copy';
                     btn.classList.remove('copied');
