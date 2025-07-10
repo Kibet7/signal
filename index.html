@@ -20,7 +20,7 @@
         }
         
         .container {
-            max-width: 1200px; /* Increased from 800px to 1200px */
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
             text-align: center;
@@ -34,7 +34,7 @@
         }
         
         .header h1 {
-            font-size: 2.5rem; /* Slightly larger header */
+            font-size: 2.5rem;
             text-shadow: 0 0 10px rgba(0, 191, 255, 0.5);
             background: linear-gradient(90deg, #00bfff, #ffffff);
             -webkit-background-clip: text;
@@ -45,28 +45,28 @@
         
         .header p {
             color: #a8d8ff;
-            font-size: 1.1rem; /* Slightly larger text */
+            font-size: 1.1rem;
         }
         
         .video-container {
             position: relative;
-            margin: 30px auto; /* Centered with auto margins */
+            margin: 30px auto;
             background: rgba(5, 25, 55, 0.5);
             border-radius: 15px;
             overflow: hidden;
             border: 1px solid rgba(0, 191, 255, 0.2);
             box-shadow: 0 0 30px rgba(0, 191, 255, 0.1);
             aspect-ratio: 16/9;
-            width: 95%; /* Takes up 95% of container width */
-            max-width: 1100px; /* Maximum width */
-            transform: scale(0.95); /* Slight zoom out */
+            width: 95%;
+            max-width: 1100px;
+            transform: scale(0.95);
             transform-origin: center;
         }
         
         .video-player {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* Shows full video without cropping */
+            object-fit: contain;
         }
         
         .video-controls {
@@ -183,12 +183,13 @@
             opacity: 1;
         }
         
+        /* Updated Payment Instructions Styles */
         .payment-instructions {
             background: rgba(5, 25, 55, 0.9);
-            padding: 20px;
+            padding: 25px;
             border-radius: 10px;
             margin: 25px auto;
-            max-width: 800px; /* Slightly wider instructions */
+            max-width: 800px;
             border: 1px solid rgba(0, 191, 255, 0.3);
             box-shadow: 0 0 20px rgba(0, 191, 255, 0.2);
             display: none;
@@ -216,47 +217,81 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
-        .payment-instructions h3 {
-            margin-top: 0;
+        .payment-header {
+            font-size: 22px;
+            font-weight: bold;
             color: #00bfff;
-            font-size: 1.4rem; /* Slightly larger */
+            margin-bottom: 15px;
+            text-align: center;
+            background-color: rgba(0, 191, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 5px solid #00bfff;
+            line-height: 1.4;
+        }
+        
+        .down-arrow {
+            display: block;
+            font-size: 24px;
+            margin: 10px 0;
+            color: #00bfff;
+        }
+        
+        .payment-instructions h3 {
+            margin-top: 20px;
+            color: #00bfff;
+            font-size: 1.4rem;
+            text-align: center;
         }
         
         .payment-instructions ol {
             text-align: left;
             padding-left: 20px;
-            font-size: 1rem; /* Slightly larger */
+            font-size: 1rem;
         }
         
         .payment-instructions li {
-            margin-bottom: 10px; /* More spacing */
+            margin-bottom: 12px;
             line-height: 1.6;
             color: #a8d8ff;
+            position: relative;
+            padding-left: 15px;
+        }
+        
+        .payment-instructions li::before {
+            content: "";
+            position: absolute;
+            left: -5px;
+            top: 8px;
+            width: 8px;
+            height: 8px;
+            background: #00bfff;
+            border-radius: 50%;
         }
         
         .payment-details {
             background: rgba(0, 191, 255, 0.1);
-            padding: 15px; /* More padding */
+            padding: 20px;
             border-radius: 8px;
-            margin: 20px 0; /* More margin */
+            margin: 25px 0;
             border: 1px solid rgba(0, 191, 255, 0.2);
         }
         
         .detail-row {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 10px; /* More spacing */
+            margin-bottom: 15px;
             align-items: center;
         }
         
         .detail-label {
             font-weight: bold;
             color: #a8d8ff;
-            font-size: 1rem; /* Slightly larger */
+            font-size: 1rem;
         }
         
         .detail-value {
-            font-size: 1.1rem; /* Slightly larger */
+            font-size: 1.2rem;
             color: #00bfff;
             font-weight: bold;
         }
@@ -265,13 +300,16 @@
             background: rgba(0, 191, 255, 0.3);
             color: white;
             border: none;
-            padding: 5px 15px; /* Slightly larger */
+            padding: 8px 15px;
             border-radius: 20px;
             cursor: pointer;
-            font-size: 0.9rem; /* Slightly larger */
-            margin-left: 10px; /* More spacing */
+            font-size: 0.9rem;
+            margin-left: 10px;
             transition: all 0.2s;
             border: 1px solid rgba(0, 191, 255, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
         
         .copy-btn:hover {
@@ -283,6 +321,22 @@
             border-color: #4CAF50;
         }
         
+        .support-email {
+            margin-top: 25px;
+            color: #a8d8ff;
+            font-size: 1rem;
+        }
+        
+        .support-email a {
+            color: #00bfff;
+            text-decoration: none;
+        }
+        
+        .support-email a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Stars background */
         .stars {
             position: fixed;
             top: 0;
@@ -305,21 +359,6 @@
             50% { opacity: 1; }
         }
         
-        .support-email {
-            margin-top: 25px; /* More spacing */
-            color: #a8d8ff;
-            font-size: 1rem; /* Slightly larger */
-        }
-        
-        .support-email a {
-            color: #00bfff;
-            text-decoration: none;
-        }
-        
-        .support-email a:hover {
-            text-decoration: underline;
-        }
-        
         @media (max-width: 768px) {
             .container {
                 max-width: 95%;
@@ -337,7 +376,7 @@
             .video-container {
                 width: 100%;
                 margin: 20px 0;
-                transform: scale(1); /* No zoom out on mobile */
+                transform: scale(1);
             }
             
             .payment-button {
@@ -346,8 +385,13 @@
             }
             
             .payment-instructions {
-                padding: 15px;
+                padding: 20px;
                 max-width: 100%;
+            }
+            
+            .payment-header {
+                font-size: 18px;
+                padding: 12px;
             }
             
             .payment-instructions h3 {
@@ -358,12 +402,8 @@
                 font-size: 0.95rem;
             }
             
-            .volume-slider {
-                width: 60px;
-            }
-            
-            .volume-container:hover .volume-slider {
-                width: 80px;
+            .detail-value {
+                font-size: 1.1rem;
             }
         }
         
@@ -376,6 +416,11 @@
                 font-size: 0.95rem;
             }
             
+            .payment-header {
+                font-size: 16px;
+                padding: 10px;
+            }
+            
             .payment-instructions h3 {
                 font-size: 1.2rem;
             }
@@ -386,6 +431,11 @@
             
             .detail-label, .detail-value {
                 font-size: 0.95rem;
+            }
+            
+            .copy-btn {
+                padding: 6px 12px;
+                font-size: 0.8rem;
             }
         }
     </style>
@@ -400,7 +450,6 @@
         </div>
         
         <div class="video-container">
-            <!-- Replace with your actual video source -->
             <video class="video-player" id="videoPlayer" autoplay muted loop poster="https://via.placeholder.com/800x450/0a192f/00bfff?text=Aviator+Preview">
                 <source src="signal.mp4" type="video/mp4">
                 Your browser does not support the video tag.
@@ -424,8 +473,28 @@
         </div>
         
         <div class="payment-instructions" id="paymentInstructions">
-            <h3>M-Pesa Payment Instructions</h3>
-            <p>Follow these steps to complete your payment:</p>
+            <div class="payment-header">
+                GO TO MPESA ON YOUR PHONE AND BUY <span id="packageAmount">KSh 380</span> AIRTIME TO THE PHONE NUMBER BELOW
+                <div class="down-arrow">↓</div>
+            </div>
+            
+            <div class="payment-details">
+                <div class="detail-row">
+                    <span class="detail-label">M-Pesa Phone Number:</span>
+                    <div>
+                        <span class="detail-value" id="phoneNumber">0702100570</span>
+                        <button class="copy-btn" id="copyPhoneBtn">
+                            <i class="far fa-copy"></i> Copy
+                        </button>
+                    </div>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Amount:</span>
+                    <span class="detail-value">KSh 380</span>
+                </div>
+            </div>
+            
+            
             <ol>
                 <li>Go to <strong>M-Pesa</strong> menu on your phone</li>
                 <li>Select <strong>"Buy Airtime"</strong></li>
@@ -436,23 +505,14 @@
                 <li>You will receive a confirmation SMS</li>
             </ol>
             
-            <div class="payment-details">
-                <div class="detail-row">
-                    <span class="detail-label">Buy Airtime:</span>
-                    <div>
-                        <span class="detail-value" id="phoneNumber">0702100570</span>
-                        <button class="copy-btn" id="copyPhoneBtn">Copy</button>
-                    </div>
-                </div>
-                <div class="detail-row">
-                    <span class="detail-label">Amount:</span>
-                    <span class="detail-value">KSh 380</span>
-                </div>
-            </div>
-            
-            <p>After successful payment, refresh this page to access weekly signals!</p>
+            <p style="margin-top: 15px; font-style: italic; color: #a8d8ff; text-align: center;">
+                <i class="fas fa-info-circle" style="color: #00bfff;"></i> 
+                After successful payment, refresh this page to access weekly signals!
+            </p>
         </div>
     </div>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
     <script>
         // Create stars background
@@ -490,8 +550,6 @@
             // Autoplay the video (muted by default)
             video.play().catch(error => {
                 console.log('Autoplay prevented:', error);
-                // Show mute button to indicate user needs to interact
-                muteBtn.style.display = 'block';
             });
             
             // Mute toggle
@@ -565,12 +623,12 @@
             const phoneNumber = document.getElementById('phoneNumber').textContent;
             navigator.clipboard.writeText(phoneNumber).then(() => {
                 const btn = document.getElementById('copyPhoneBtn');
-                btn.textContent = 'Copied!';
+                btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
                 btn.classList.add('copied');
                 
                 // Reset button after 2 seconds
                 setTimeout(() => {
-                    btn.textContent = 'Copy';
+                    btn.innerHTML = '<i class="far fa-copy"></i> Copy';
                     btn.classList.remove('copied');
                 }, 2000);
             }).catch(err => {
